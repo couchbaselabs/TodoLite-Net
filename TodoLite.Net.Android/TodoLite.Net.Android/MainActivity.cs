@@ -14,14 +14,10 @@ namespace TodoLite.Net.Android
         protected override void OnCreate(Bundle savedInstanceState)
         {
             RequestWindowFeature(WindowFeatures.IndeterminateProgress);
-
+            base.OnCreate(savedInstanceState);
             m_preferences = new TodoLitePreferences(Application);
 
-            base.OnCreate(savedInstanceState);
-
-            RequestWindowFeature(WindowFeatures.ActionBar);
-
-            SetContentView(Resource.Layout.Main);
+            SetContentView(Resource.Layout.activity_main);
 //
 //            // Get our button from the layout resource,
 //            // and attach an event to it
