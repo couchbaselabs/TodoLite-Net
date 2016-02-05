@@ -27,6 +27,7 @@
     <WarningLevel>4</WarningLevel>
     <AndroidLinkMode>None</AndroidLinkMode>
     <ConsolePause>false</ConsolePause>
+    <EmbedAssembliesIntoApk>True</EmbedAssembliesIntoApk>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>full</DebugType>
@@ -66,6 +67,21 @@
     <Reference Include="Xamarin.Facebook.AudienceNetwork">
       <HintPath>..\packages\Xamarin.Facebook.Android.4.9.0.0\lib\MonoAndroid403\Xamarin.Facebook.AudienceNetwork.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.7.0.1\lib\portable-net40+sl5+wp80+win8+wpa81\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="ICSharpCode.SharpZipLib.Portable">
+      <HintPath>..\packages\SharpZipLib.Portable.0.86.0.0003\lib\portable-net45+netcore45+wp8+win8+wpa81+MonoTouch+MonoAndroid+Xamarin.iOS10\ICSharpCode.SharpZipLib.Portable.dll</HintPath>
+    </Reference>
+    <Reference Include="Stateless">
+      <HintPath>..\packages\Stateless.2.5.21.0\lib\portable-net40+sl50+win+wp80\Stateless.dll</HintPath>
+    </Reference>
+    <Reference Include="Couchbase.Lite">
+      <HintPath>..\packages\Couchbase.Lite.1.2\lib\MonoAndroid\Couchbase.Lite.dll</HintPath>
+    </Reference>
+    <Reference Include="cbforest-sharp">
+      <HintPath>..\packages\Couchbase.Lite.1.2\lib\MonoAndroid\cbforest-sharp.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MainActivity.cs" />
@@ -73,6 +89,8 @@
     <Compile Include="BaseActivity.cs" />
     <Compile Include="TodoLitePreferences.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
+    <Compile Include="Application.cs" />
+    <Compile Include="Synchronize.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -82,12 +100,10 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\tool_bar.axml" />
-    <AndroidResource Include="Resources\layout\profile_view.axml" />
     <AndroidResource Include="Resources\layout\settings_view.axml" />
     <AndroidResource Include="Resources\values\colors.xml" />
     <AndroidResource Include="Resources\values\dimens.xml" />
     <AndroidResource Include="Resources\values\theme.xml" />
-    <AndroidResource Include="Resources\values\strings.xml" />
     <AndroidResource Include="Resources\values-v21\theme.xml" />
     <AndroidResource Include="Resources\values-w820dp\dimens.xml" />
     <AndroidResource Include="Resources\layout\activity_main.axml" />
@@ -113,7 +129,6 @@
     <AndroidResource Include="Resources\layout\activity_share.xml" />
     <AndroidResource Include="Resources\layout\fragment_main.xml" />
     <AndroidResource Include="Resources\layout\list_item.xml" />
-    <AndroidResource Include="Resources\layout\profile_view.xml" />
     <AndroidResource Include="Resources\layout\recycler_view_item_row.xml" />
     <AndroidResource Include="Resources\layout\settings_view.xml" />
     <AndroidResource Include="Resources\layout\tool_bar.xml" />
@@ -129,6 +144,8 @@
     <AndroidResource Include="Resources\mipmap-hdpi\icon.png" />
     <AndroidResource Include="Resources\mipmap-mdpi\icon.png" />
     <AndroidResource Include="Resources\mipmap-xxhdpi\icon.png" />
+    <AndroidResource Include="Resources\values\strings.xml" />
+    <AndroidResource Include="Resources\layout\profile_view.xml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\drawable\" />
@@ -144,4 +161,5 @@
     <Folder Include="Resources\mipmap-xhdpi\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
+  <Import Project="..\packages\Couchbase.Lite.Storage.SystemSQLite.1.2\build\MonoAndroid\Couchbase.Lite.Storage.SystemSQLite.targets" Condition="Exists('..\packages\Couchbase.Lite.Storage.SystemSQLite.1.2\build\MonoAndroid\Couchbase.Lite.Storage.SystemSQLite.targets')" />
 </Project>

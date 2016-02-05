@@ -2,6 +2,8 @@
 using Android.Widget;
 using Android.OS;
 using Android.Views;
+using Android.Support.V7.Widget;
+using Android.Util;
 
 namespace TodoLite.Net.Android
 {
@@ -10,23 +12,29 @@ namespace TodoLite.Net.Android
     {
 
         private TodoLitePreferences m_preferences;
+        private SwitchCompat m_toggleGCM;
+        private App m_app;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
+            m_app = new App();
+
             RequestWindowFeature(WindowFeatures.IndeterminateProgress);
             base.OnCreate(savedInstanceState);
             m_preferences = new TodoLitePreferences(Application);
 
             SetContentView(Resource.Layout.activity_main);
-//
-//            // Get our button from the layout resource,
-//            // and attach an event to it
-//            Button button = FindViewById<Button>(Resource.Id.myButton);
-//			
-//            button.Click += delegate
-//            {
-//                button.Text = string.Format("{0} clicks!", count++);
-//            };
+
+            m_toggleGCM = FindViewById<SwitchCompat>(Resource.Id.toggleGCM);
+
+            Log.Debug(App.Tag, "MainActivity State: onCreate()");
+
+            // Use facebook authentication
+            if (m_preferences.LastReceivedFacebookAccessToken != null)
+            {
+                m_app.SetDatabaseForName(m_preferences.CurrentUserId);
+                m_app.StartReplicationWithAuthentication(AuthenticationType.Facebook);
+            }
         }
     }
 }

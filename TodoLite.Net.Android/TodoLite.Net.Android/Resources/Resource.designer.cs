@@ -26,6 +26,8 @@ namespace TodoLite.Net.Android
 		
 		public static void UpdateIdValues()
 		{
+			global::Couchbase.Lite.Android.Resource.String.library_name = global::TodoLite.Net.Android.Resource.String.library_name;
+			global::cbforestsharp.Droid.Resource.String.library_name = global::TodoLite.Net.Android.Resource.String.library_name;
 		}
 		
 		public partial class Animation
@@ -2592,113 +2594,116 @@ namespace TodoLite.Net.Android
 			// aapt resource value: 0x7f0a0012
 			public const int abc_toolbar_collapse_description = 2131361810;
 			
-			// aapt resource value: 0x7f0a002c
-			public const int action_delete = 2131361836;
-			
-			// aapt resource value: 0x7f0a0029
-			public const int action_login = 2131361833;
+			// aapt resource value: 0x7f0a002d
+			public const int action_delete = 2131361837;
 			
 			// aapt resource value: 0x7f0a002a
-			public const int action_logout = 2131361834;
-			
-			// aapt resource value: 0x7f0a0028
-			public const int action_new_list = 2131361832;
+			public const int action_login = 2131361834;
 			
 			// aapt resource value: 0x7f0a002b
-			public const int action_share = 2131361835;
+			public const int action_logout = 2131361835;
 			
-			// aapt resource value: 0x7f0a002d
-			public const int action_show_document = 2131361837;
+			// aapt resource value: 0x7f0a0029
+			public const int action_new_list = 2131361833;
+			
+			// aapt resource value: 0x7f0a002c
+			public const int action_share = 2131361836;
 			
 			// aapt resource value: 0x7f0a002e
-			public const int action_update = 2131361838;
-			
-			// aapt resource value: 0x7f0a0026
-			public const int app_name = 2131361830;
-			
-			// aapt resource value: 0x7f0a0014
-			public const int com_facebook_device_auth_instructions = 2131361812;
-			
-			// aapt resource value: 0x7f0a0015
-			public const int com_facebook_image_download_unknown_error = 2131361813;
-			
-			// aapt resource value: 0x7f0a0016
-			public const int com_facebook_internet_permission_error_message = 2131361814;
-			
-			// aapt resource value: 0x7f0a0017
-			public const int com_facebook_internet_permission_error_title = 2131361815;
-			
-			// aapt resource value: 0x7f0a0018
-			public const int com_facebook_like_button_liked = 2131361816;
-			
-			// aapt resource value: 0x7f0a0019
-			public const int com_facebook_like_button_not_liked = 2131361817;
-			
-			// aapt resource value: 0x7f0a001a
-			public const int com_facebook_loading = 2131361818;
-			
-			// aapt resource value: 0x7f0a001b
-			public const int com_facebook_loginview_cancel_action = 2131361819;
-			
-			// aapt resource value: 0x7f0a001c
-			public const int com_facebook_loginview_log_in_button = 2131361820;
-			
-			// aapt resource value: 0x7f0a001d
-			public const int com_facebook_loginview_log_in_button_long = 2131361821;
-			
-			// aapt resource value: 0x7f0a001e
-			public const int com_facebook_loginview_log_out_action = 2131361822;
-			
-			// aapt resource value: 0x7f0a001f
-			public const int com_facebook_loginview_log_out_button = 2131361823;
-			
-			// aapt resource value: 0x7f0a0020
-			public const int com_facebook_loginview_logged_in_as = 2131361824;
-			
-			// aapt resource value: 0x7f0a0021
-			public const int com_facebook_loginview_logged_in_using_facebook = 2131361825;
-			
-			// aapt resource value: 0x7f0a0022
-			public const int com_facebook_send_button_text = 2131361826;
-			
-			// aapt resource value: 0x7f0a0023
-			public const int com_facebook_share_button_text = 2131361827;
-			
-			// aapt resource value: 0x7f0a0024
-			public const int com_facebook_tooltip_default = 2131361828;
-			
-			// aapt resource value: 0x7f0a0027
-			public const int facebook_app_id = 2131361831;
-			
-			// aapt resource value: 0x7f0a0030
-			public const int hint_create_task = 2131361840;
+			public const int action_show_document = 2131361838;
 			
 			// aapt resource value: 0x7f0a002f
-			public const int hint_new_list = 2131361839;
+			public const int action_update = 2131361839;
+			
+			// aapt resource value: 0x7f0a0027
+			public const int app_name = 2131361831;
+			
+			// aapt resource value: 0x7f0a0015
+			public const int com_facebook_device_auth_instructions = 2131361813;
+			
+			// aapt resource value: 0x7f0a0016
+			public const int com_facebook_image_download_unknown_error = 2131361814;
+			
+			// aapt resource value: 0x7f0a0017
+			public const int com_facebook_internet_permission_error_message = 2131361815;
+			
+			// aapt resource value: 0x7f0a0018
+			public const int com_facebook_internet_permission_error_title = 2131361816;
+			
+			// aapt resource value: 0x7f0a0019
+			public const int com_facebook_like_button_liked = 2131361817;
+			
+			// aapt resource value: 0x7f0a001a
+			public const int com_facebook_like_button_not_liked = 2131361818;
+			
+			// aapt resource value: 0x7f0a001b
+			public const int com_facebook_loading = 2131361819;
+			
+			// aapt resource value: 0x7f0a001c
+			public const int com_facebook_loginview_cancel_action = 2131361820;
+			
+			// aapt resource value: 0x7f0a001d
+			public const int com_facebook_loginview_log_in_button = 2131361821;
+			
+			// aapt resource value: 0x7f0a001e
+			public const int com_facebook_loginview_log_in_button_long = 2131361822;
+			
+			// aapt resource value: 0x7f0a001f
+			public const int com_facebook_loginview_log_out_action = 2131361823;
+			
+			// aapt resource value: 0x7f0a0020
+			public const int com_facebook_loginview_log_out_button = 2131361824;
+			
+			// aapt resource value: 0x7f0a0021
+			public const int com_facebook_loginview_logged_in_as = 2131361825;
+			
+			// aapt resource value: 0x7f0a0022
+			public const int com_facebook_loginview_logged_in_using_facebook = 2131361826;
+			
+			// aapt resource value: 0x7f0a0023
+			public const int com_facebook_send_button_text = 2131361827;
+			
+			// aapt resource value: 0x7f0a0024
+			public const int com_facebook_share_button_text = 2131361828;
 			
 			// aapt resource value: 0x7f0a0025
-			public const int messenger_send_button_text = 2131361829;
+			public const int com_facebook_tooltip_default = 2131361829;
 			
-			// aapt resource value: 0x7f0a0032
-			public const int navigation_drawer_close = 2131361842;
+			// aapt resource value: 0x7f0a0028
+			public const int facebook_app_id = 2131361832;
 			
 			// aapt resource value: 0x7f0a0031
-			public const int navigation_drawer_open = 2131361841;
+			public const int hint_create_task = 2131361841;
+			
+			// aapt resource value: 0x7f0a0030
+			public const int hint_new_list = 2131361840;
+			
+			// aapt resource value: 0x7f0a0014
+			public const int library_name = 2131361812;
+			
+			// aapt resource value: 0x7f0a0026
+			public const int messenger_send_button_text = 2131361830;
+			
+			// aapt resource value: 0x7f0a0033
+			public const int navigation_drawer_close = 2131361843;
+			
+			// aapt resource value: 0x7f0a0032
+			public const int navigation_drawer_open = 2131361842;
 			
 			// aapt resource value: 0x7f0a0013
 			public const int status_bar_notification_info_overflow = 2131361811;
 			
-			// aapt resource value: 0x7f0a0036
-			public const int title_activity_image_view = 2131361846;
-			
-			// aapt resource value: 0x7f0a0033
-			public const int title_activity_share = 2131361843;
+			// aapt resource value: 0x7f0a0037
+			public const int title_activity_image_view = 2131361847;
 			
 			// aapt resource value: 0x7f0a0034
-			public const int title_dialog_new_list = 2131361844;
+			public const int title_activity_share = 2131361844;
 			
 			// aapt resource value: 0x7f0a0035
-			public const int title_dialog_update = 2131361845;
+			public const int title_dialog_new_list = 2131361845;
+			
+			// aapt resource value: 0x7f0a0036
+			public const int title_dialog_update = 2131361846;
 			
 			static String()
 			{

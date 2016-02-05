@@ -49,7 +49,7 @@ namespace TodoLite.Net.Android
         public string CurrentListId
         { 
             get { 
-                return m_preferences.GetString(m_prefCurrentListId, "");
+                return m_preferences.GetString(m_prefCurrentListId, null);
             }
             set {
                 m_preferences.Edit().PutString(m_prefCurrentListId, value);
@@ -59,7 +59,7 @@ namespace TodoLite.Net.Android
         public string CurrentUserId
         { 
             get { 
-                return m_preferences.GetString(m_prefCurrentUserId, "");
+                return m_preferences.GetString(m_prefCurrentUserId, null);
             }
             set {
                 m_preferences.Edit().PutString(m_prefCurrentUserId, value);
@@ -69,7 +69,7 @@ namespace TodoLite.Net.Android
         public string CurrentUserPassword
         { 
             get { 
-                return m_preferences.GetString(m_prefCurrentUserPassword, "");
+                return m_preferences.GetString(m_prefCurrentUserPassword, null);
             }
             set {
                 m_preferences.Edit().PutString(m_prefCurrentUserPassword, value);
@@ -79,7 +79,7 @@ namespace TodoLite.Net.Android
         public string LastReceivedFacebookAccessToken
         { 
             get { 
-                return m_preferences.GetString(m_prefLastReceivedFacebookAccessToken, "");
+                return m_preferences.GetString(m_prefLastReceivedFacebookAccessToken, null);
             }
             set {
                 m_preferences.Edit().PutString(m_prefLastReceivedFacebookAccessToken, value);
