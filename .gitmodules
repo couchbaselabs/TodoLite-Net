@@ -1,0 +1,3 @@
+[submodule "Couchbase"]
+	path = Couchbase
+	url = https://github.com/couchbase/couchbase-lite-net
