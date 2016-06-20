@@ -145,6 +145,10 @@
       <Project>{48c07b5b-9ea5-458c-b4e0-b7efb23a9126}</Project>
       <Name>ToDoLiteForms</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Couchbase\src\StorageEngines\SystemSQLite\storage.systemsqlite.droid\storage.systemsqlite.droid.csproj">
+      <Project>{51DC5755-5EDE-45CE-97D2-D45078DA0F3B}</Project>
+      <Name>storage.systemsqlite.droid</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="..\ToDoLite\ToDoLite.projitems" Label="Shared" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />

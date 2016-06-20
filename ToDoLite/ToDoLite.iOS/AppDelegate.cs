@@ -23,6 +23,7 @@ namespace ToDoLite.iOS
 		public override bool FinishedLaunching(UIApplication app, NSDictionary options)
 		{
 			global::Xamarin.Forms.Forms.Init ();
+            Couchbase.Lite.Storage.SystemSQLite.Plugin.Register();
 			LoadApplication (new ToDoLiteForms.App (new PlatformModule()));
 
 			return base.FinishedLaunching (app, options);
