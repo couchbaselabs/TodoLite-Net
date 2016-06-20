@@ -1,5 +1,5 @@
 ﻿//
-//  PlatformModule.cs
+//  MasterPageModel.cs
 //
 //  Author:
 //  	Jim Borden  <jim.borden@couchbase.com>
@@ -21,19 +21,28 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
-using Autofac;
-using ToDoLite.Services;
+using System.Threading.Tasks;
+using ToDoLiteForms.Helpers;
 using ToDoLiteForms.Services;
 
-namespace ToDoLite
+namespace ToDoLiteForms.Model
 {
-    class PlatformModule : Module
+    public sealed class MasterPageModel
     {
-        protected override void Load(ContainerBuilder builder)
+        private ILoginService _loginService;
+
+        public bool ShouldLoginAsGuest
         {
-            builder.RegisterType<LoginService>().As<ILoginService>().SingleInstance();
-            builder.RegisterType<DatabaseService>().As<IDatabaseService>().SingleInstance();
+            get {
+                return _loginService.IsFirstTimeUsed || Settings.IsGuestLoggedIn;
+            }
+        }
+
+        public MasterPageModel(ILoginService loginService)
+        {
+            _loginService = loginService;
         }
     }
 }

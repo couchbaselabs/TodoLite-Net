@@ -56,13 +56,14 @@ namespace ToDoLiteForms
         protected override void RegisterViews(IViewFactory viewFactory)
         {
             viewFactory.Register<LoginPageViewModel, LoginPage>();
+            viewFactory.Register<MasterPageViewModel, MasterPage>();
         }
 
         protected override void ConfigureApplication(IContainer container)
         {
             // set main page
             var viewFactory = container.Resolve<IViewFactory>();
-            var mainPage = viewFactory.Resolve<LoginPageViewModel>();
+            var mainPage = viewFactory.Resolve<MasterPageViewModel>();
             var navigationPage = new NavigationPage(mainPage);
 
             _application.MainPage = navigationPage;

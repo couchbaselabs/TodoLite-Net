@@ -13,8 +13,6 @@ namespace ToDoLiteForms.View
         public LoginPage(LoginPageViewModel viewModel)
         {
             InitializeComponent();
-
-            viewModel.PageChangeRequested += (sender, args) => Navigation.PushAsync(args);
             BindingContext = viewModel;
         }
     }

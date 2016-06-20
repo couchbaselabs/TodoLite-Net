@@ -41,10 +41,13 @@
     <Compile Include="Factories\ViewFactory.cs" />
     <Compile Include="Helpers\Settings.cs" />
     <Compile Include="Model\LoginPageModel.cs" />
+    <Compile Include="Model\MasterPageModel.cs" />
+    <Compile Include="Services\IDatabaseService.cs" />
     <Compile Include="Services\ILoginService.cs" />
     <Compile Include="Services\INavigator.cs" />
     <Compile Include="ToDoLiteModule.cs" />
     <Compile Include="ViewModel\IViewModel.cs" />
+    <Compile Include="ViewModel\MasterPageViewModel.cs" />
     <Compile Include="ViewModel\ViewModelBase.cs" />
     <Compile Include="View\LoginPage.xaml.cs">
       <DependentUpon>LoginPage.xaml</DependentUpon>

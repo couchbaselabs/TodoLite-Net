@@ -39,8 +39,11 @@ namespace ToDoLiteForms
         protected override void Load(ContainerBuilder builder)
         {
             builder.RegisterType<LoginPageModel>();
+            builder.RegisterType<MasterPageModel>();
             builder.RegisterType<LoginPageViewModel>();
+            builder.RegisterType<MasterPageViewModel>();
             builder.RegisterType<LoginPage>().SingleInstance();
+            builder.RegisterType<MasterPage>().SingleInstance();
         }
     }
 

@@ -74,6 +74,14 @@
       <HintPath>..\..\packages\Xam.Plugins.Settings.2.1.0\lib\MonoAndroid10\Plugin.Settings.Abstractions.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="SQLitePCL.raw, Version=0.9.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\SQLitePCL.raw.0.9.1\lib\MonoAndroid\SQLitePCL.raw.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SQLitePCL.ugly, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\SQLitePCL.ugly.0.9.1\lib\portable-net45+netcore45+wp8+MonoAndroid10+MonoTouch10+Xamarin.iOS10\SQLitePCL.ugly.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Stateless, Version=2.5.62.0, Culture=neutral, PublicKeyToken=93038f0927583c9a, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Stateless.2.5.62.0\lib\portable-net40+sl50+win+wp80+MonoAndroid10+xamarinios10+MonoTouch10\Stateless.dll</HintPath>
       <Private>True</Private>
@@ -141,13 +149,13 @@
       <Project>{5615e423-d0fd-4f99-a99c-061679615cee}</Project>
       <Name>Couchbase.Lite.Android</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Couchbase\src\StorageEngines\SystemSQLite\storage.systemsqlite.droid\storage.systemsqlite.droid.csproj">
+      <Project>{51dc5755-5ede-45ce-97d2-d45078da0f3b}</Project>
+      <Name>storage.systemsqlite.droid</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ToDoLite\ToDoLiteForms\ToDoLiteForms.csproj">
       <Project>{48c07b5b-9ea5-458c-b4e0-b7efb23a9126}</Project>
       <Name>ToDoLiteForms</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Couchbase\src\StorageEngines\SystemSQLite\storage.systemsqlite.droid\storage.systemsqlite.droid.csproj">
-      <Project>{51DC5755-5EDE-45CE-97D2-D45078DA0F3B}</Project>
-      <Name>storage.systemsqlite.droid</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="..\ToDoLite\ToDoLite.projitems" Label="Shared" />

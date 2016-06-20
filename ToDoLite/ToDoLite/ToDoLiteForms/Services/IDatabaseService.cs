@@ -1,5 +1,5 @@
 ﻿//
-//  PlatformModule.cs
+//  IDatabaseService.cs
 //
 //  Author:
 //  	Jim Borden  <jim.borden@couchbase.com>
@@ -21,19 +21,14 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
-using Autofac;
-using ToDoLite.Services;
-using ToDoLiteForms.Services;
+using System.Threading.Tasks;
 
-namespace ToDoLite
+namespace ToDoLiteForms.Services
 {
-    class PlatformModule : Module
+    public interface IDatabaseService
     {
-        protected override void Load(ContainerBuilder builder)
-        {
-            builder.RegisterType<LoginService>().As<ILoginService>().SingleInstance();
-            builder.RegisterType<DatabaseService>().As<IDatabaseService>().SingleInstance();
-        }
+        void LoadDatabaseFor(string userId);
     }
 }

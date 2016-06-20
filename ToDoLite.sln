@@ -45,9 +45,12 @@ Global
 		Couchbase\vendor\websocket-sharp\websocket-sharp\websocket-sharp.shared.projitems*{891a08fc-f143-4325-bc16-b9864d036b99}*SharedItemsImports = 13
 		Couchbase\vendor\websocket-sharp\websocket-sharp\websocket-sharp.shared.projitems*{e1153fa4-356a-454d-b32e-136102f2482f}*SharedItemsImports = 4
 		ToDoLite\ToDoLite\ToDoLite.projitems*{aa856bfa-f7e3-4f8d-adbd-92f6a3cdf06d}*SharedItemsImports = 4
+		Couchbase\src\StorageEngines\SQLiteCommon\storage.sqlite.common\storage.sqlite.common.projitems*{51dc5755-5ede-45ce-97d2-d45078da0f3b}*SharedItemsImports = 4
 		Couchbase\src\Couchbase.Lite.Shared\Couchbase.Lite.Shared.projitems*{443e1bee-43b3-45a1-acea-f7ba71bdaab1}*SharedItemsImports = 4
+		Couchbase\src\StorageEngines\SQLiteCommon\storage.sqlite.common\storage.sqlite.common.projitems*{374a309a-bec8-4750-bcbf-97895bdfdc13}*SharedItemsImports = 4
 		Couchbase\vendor\websocket-sharp\websocket-sharp\websocket-sharp.shared.projitems*{dce46cb2-0317-4a62-9613-ae6a240c46db}*SharedItemsImports = 4
 		Couchbase\src\Couchbase.Lite.Shared\Couchbase.Lite.Shared.projitems*{ff87eed7-5de9-47e9-82f4-d1df659d1dc2}*SharedItemsImports = 13
+		Couchbase\src\StorageEngines\SQLiteCommon\storage.sqlite.common\storage.sqlite.common.projitems*{79fc4a01-1e39-468f-8e55-195bc918232e}*SharedItemsImports = 13
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Ad-Hoc|Any CPU = Ad-Hoc|Any CPU

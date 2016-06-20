@@ -14,6 +14,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Documents\Task.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PlatformModule.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\DatabaseService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\LoginService.cs" />
   </ItemGroup>
 </Project>

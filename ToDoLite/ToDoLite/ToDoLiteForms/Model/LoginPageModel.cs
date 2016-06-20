@@ -31,19 +31,7 @@ namespace ToDoLiteForms.Model
 {
     public sealed class LoginPageModel
     {
-        private readonly ILoginService _loginService;
         public const string ContinueButtonText = "Continue As Guest";
 
-        public bool ShouldLoginAsGuest
-        {
-            get {
-                return _loginService.IsFirstTimeUsed || Settings.IsGuestLoggedIn;
-            }
-        }
-
-        public LoginPageModel(ILoginService loginService)
-        {
-            _loginService = loginService;
-        }
     }
 }

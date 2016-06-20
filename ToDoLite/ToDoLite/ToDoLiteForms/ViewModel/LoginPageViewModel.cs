@@ -21,7 +21,11 @@
 
 using System;
 using System.ComponentModel;
+using System.Diagnostics;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Input;
+using ToDoLiteForms.Helpers;
 using ToDoLiteForms.Model;
 using ToDoLiteForms.Services;
 using ToDoLiteForms.View;
@@ -32,27 +36,41 @@ namespace ToDoLiteForms.ViewModel
     public sealed class LoginPageViewModel : ViewModelBase
     {
         private ICommand _continueButtonClicked;
+        private IDatabaseService _databaseService;
+        private INavigator _navigator;
         private readonly LoginPageModel _model;
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        public event EventHandler<ContentPage> PageChangeRequested;
 
         public string ContinueButtonText
         {
-            get { return _model.ShouldLoginAsGuest ? "YES" : "NO"; }
+            get { return LoginPageModel.ContinueButtonText; }
         }
 
         public ICommand ContinueButtonClicked
         {
             get {
-                return _continueButtonClicked ?? (_continueButtonClicked = new Command(() => PageChangeRequested?.Invoke(this, new MasterPage())));
+                return _continueButtonClicked ?? (_continueButtonClicked = new Command(LoginAsGuest));
             }
         }
 
-        public LoginPageViewModel(LoginPageModel model)
+        public LoginPageViewModel(LoginPageModel model, IDatabaseService databaseService, INavigator navigator)
         {
             _model = model;
+            _databaseService = databaseService;
+            _navigator = navigator;
+        }
+
+        internal static void LoginAsGuest(IDatabaseService databaseService)
+        {
+            Settings.IsGuestLoggedIn = true;
+            Settings.CurrentUserId = null;
+            databaseService.LoadDatabaseFor(null);
+            
+        }
+
+        private void LoginAsGuest()
+        {
+            LoginAsGuest(_databaseService);
+            _navigator.PopModalAsync();
         }
     }
 }

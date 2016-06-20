@@ -23,6 +23,9 @@ namespace ToDoLiteForms.Helpers
         private const string GuestLoggedInKey = "guest";
         private const bool GuestLoggedInDefault = false;
 
+        private const string UserIdKey = "user_id";
+        private const string UserIdDefault = null;
+
         #endregion
 
 
@@ -34,6 +37,14 @@ namespace ToDoLiteForms.Helpers
                 AppSettings.AddOrUpdateValue<bool>(GuestLoggedInKey, value);
             }
         }
-
+        
+        public static string CurrentUserId
+        {
+            get {
+                return AppSettings.GetValueOrDefault<string>(UserIdKey, UserIdDefault);
+            } set {
+                AppSettings.AddOrUpdateValue<string>(UserIdKey, value);
+            }
+        }
     }
 }

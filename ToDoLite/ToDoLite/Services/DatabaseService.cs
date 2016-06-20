@@ -1,5 +1,5 @@
 ﻿//
-//  PlatformModule.cs
+//  DatabaseService.cs
 //
 //  Author:
 //  	Jim Borden  <jim.borden@couchbase.com>
@@ -22,18 +22,18 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using Autofac;
-using ToDoLite.Services;
+using Couchbase.Lite;
 using ToDoLiteForms.Services;
 
-namespace ToDoLite
+namespace ToDoLite.Services
 {
-    class PlatformModule : Module
+    class DatabaseService : IDatabaseService
     {
-        protected override void Load(ContainerBuilder builder)
+        private Database _database;
+
+        public void LoadDatabaseFor(string userId)
         {
-            builder.RegisterType<LoginService>().As<ILoginService>().SingleInstance();
-            builder.RegisterType<DatabaseService>().As<IDatabaseService>().SingleInstance();
+            _database = Manager.SharedInstance.GetDatabase(userId ?? "guest");
         }
     }
 }
