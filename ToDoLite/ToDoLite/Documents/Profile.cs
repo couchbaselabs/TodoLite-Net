@@ -25,14 +25,35 @@ using System.Linq;
 using System.Text;
 
 using Couchbase.Lite;
+using ToDoLiteForms.Model;
 
 namespace ToDoLite.Documents
 {
-    public static class Profile
+    public sealed class Profile : IProfile
     {
         private const string ViewName = "profiles";
         private const string ByIdViewName = "profiles_by_id";
         private const string DocType = "profile";
+
+        private Document _document;
+
+        internal string Id
+        {
+            get {
+                return _document.Id;
+            }
+        }
+
+        public string Name { get; set; }
+
+        public string UserId { get; set;
+        }
+        public string Type { get; set; }
+
+        public Profile(Document document)
+        {
+            _document = document;
+        }
 
         public static Query GetQuery(Database database, string ignoreUserId)
         {

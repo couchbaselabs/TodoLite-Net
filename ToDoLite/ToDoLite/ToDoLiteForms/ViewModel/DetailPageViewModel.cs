@@ -1,5 +1,5 @@
 ﻿//
-//  IDatabaseService.cs
+//  DetailPageViewModel.cs
 //
 //  Author:
 //  	Jim Borden  <jim.borden@couchbase.com>
@@ -25,21 +25,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ToDoLiteForms.Model;
+using ToDoLiteForms.Services;
 
-namespace ToDoLiteForms.Services
+namespace ToDoLiteForms.ViewModel
 {
-    public interface IDatabaseService
+    public sealed class DetailPageViewModel : ViewModelBase
     {
-        void LoadDatabaseFor(string userId);
+        internal ITaskList List { get; set; }
 
-        IEnumerable<ITaskList> QueryLists();
+        public DetailPageViewModel(INavigator navigator, IDatabaseService databaseService)
+        {
 
-        void UpdateAllLists(IProfile owner);
+        }
 
-        ITaskList CreateList();
 
-        ITask CreateTask();
-
-        IProfile GetProfile(string name, string userId, bool isNew);
     }
 }

@@ -1,5 +1,5 @@
 ﻿//
-//  IDatabaseService.cs
+//  IList.cs
 //
 //  Author:
 //  	Jim Borden  <jim.borden@couchbase.com>
@@ -24,22 +24,23 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ToDoLiteForms.Model;
 
-namespace ToDoLiteForms.Services
+namespace ToDoLiteForms.Model
 {
-    public interface IDatabaseService
+    public interface ITaskList
     {
-        void LoadDatabaseFor(string userId);
+        string Title { get; set; }
 
-        IEnumerable<ITaskList> QueryLists();
+        IProfile Owner { get; set; }
 
-        void UpdateAllLists(IProfile owner);
+        IList<string> Members { get; set; }
 
-        ITaskList CreateList();
+        IEnumerable<ITask> QueryTasks();
 
-        ITask CreateTask();
+        ITask AddTask(string title, IEnumerable<byte> image, string imageContentType);
 
-        IProfile GetProfile(string name, string userId, bool isNew);
+        void Delete();
+
+        void Save();
     }
 }

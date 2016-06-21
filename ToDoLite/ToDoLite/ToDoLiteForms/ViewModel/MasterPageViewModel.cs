@@ -26,16 +26,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Acr.UserDialogs;
+using ToDoLiteForms.Helpers;
 using ToDoLiteForms.Model;
 using ToDoLiteForms.Services;
 using Xamarin.Forms;
 
 namespace ToDoLiteForms.ViewModel
 {
-    public class Foo
-    {
-        public string Text { get; set; }
-    }
     public sealed class MasterPageViewModel : ViewModelBase
     {
         private readonly ILoginService _loginService;
@@ -43,11 +41,26 @@ namespace ToDoLiteForms.ViewModel
         private readonly INavigator _navigator;
         private readonly MasterPageModel _model;
 
-        public ObservableCollection<Foo> ListOfStuff { get; } = new ObservableCollection<Foo>();
+        public ObservableCollection<ITaskList> SavedLists { get; } = new ObservableCollection<ITaskList>();
 
         public ICommand AddButtonCommand { get; }
 
         public ICommand LoginButtonCommand { get; }
+
+        public ITaskList SelectedItem
+        {
+            get {
+                return null;
+            }
+            set {
+                _navigator.PushAsync<DetailPageViewModel>(vm =>
+                {
+                    vm.List = value;
+                });
+                var dummy = default(ITaskList);
+                SetProperty(ref dummy, null); // Disable selection
+            }
+        }
 
         public MasterPageViewModel(MasterPageModel model, IDatabaseService databaseService, ILoginService loginService, INavigator navigator)
         {
@@ -55,13 +68,40 @@ namespace ToDoLiteForms.ViewModel
             _databaseService = databaseService;
             _navigator = navigator;
             _model = model;
-            AddButtonCommand = new Command(() => ListOfStuff.Add(new Foo { Text = "Hi" }));
+            AddButtonCommand = new Command(() => CreateNewTask());
             LoginButtonCommand = new Command(() => navigator.PushModalAsync<LoginPageViewModel>());
             if(!_model.ShouldLoginAsGuest) {
                 navigator.PushModalAsync<LoginPageViewModel>();
             } else {
                 LoginPageViewModel.LoginAsGuest(databaseService);
             }
+
+            foreach(var list in _databaseService.QueryLists()) {
+                SavedLists.Add(list);
+            }
+        }
+
+        private async void CreateNewTask()
+        {
+            var result = await UserDialogs.Instance.PromptAsync("Title for new list.", "New ToDo List");
+            if(result.Ok && !String.IsNullOrWhiteSpace(result.Text)) {
+                var list = CreateList(result.Text);
+                SavedLists.Add(list);
+            }
+        }
+
+        private ITaskList CreateList(string title)
+        {
+            var list = _databaseService.CreateList();
+            list.Title = title;
+            var currentUserId = Settings.CurrentUserId;
+            if(currentUserId != null) {
+                var owner = _databaseService.GetProfile(null, currentUserId, false);
+                list.Owner = owner;
+            }
+
+            list.Save();
+            return list;
         }
     }
 }

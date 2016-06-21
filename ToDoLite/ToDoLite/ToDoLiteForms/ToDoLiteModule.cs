@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Acr.UserDialogs;
 using Autofac;
 using ToDoLiteForms.Factories;
 using ToDoLiteForms.Model;
@@ -44,6 +45,8 @@ namespace ToDoLiteForms
             builder.RegisterType<MasterPageViewModel>();
             builder.RegisterType<LoginPage>().SingleInstance();
             builder.RegisterType<MasterPage>().SingleInstance();
+            builder.RegisterType<DetailPage>();
+            builder.RegisterType<DetailPageViewModel>();
         }
     }
 

@@ -57,6 +57,7 @@ namespace ToDoLiteForms
         {
             viewFactory.Register<LoginPageViewModel, LoginPage>();
             viewFactory.Register<MasterPageViewModel, MasterPage>();
+            viewFactory.Register<DetailPageViewModel, DetailPage>();
         }
 
         protected override void ConfigureApplication(IContainer container)

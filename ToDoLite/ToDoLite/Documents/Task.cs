@@ -25,82 +25,62 @@ using System.IO;
 using System.Text;
 
 using Couchbase.Lite;
+using ToDoLiteForms.Model;
 
 namespace ToDoLite.Documents
 {
-    public static class Task
+    public class Task : Titled, ITask
     {
+        internal const string DocType = "task";
         private const string ViewName = "tasks";
-        private const string DocType = "task";
+        private const string TaskImageName = "image";
 
-        public static Query GetQuery(Database database, string listDocId)
+        public bool IsChecked
         {
-            var view = database.GetView(ViewName);
-            if(view.Map == null) {
-                view.SetMap((doc, emit) =>
-                {
-                    if(DocType.Equals(doc.GetCast<string>("type"))) {
-                        var key = new List<object> { doc.Get("list_id"), doc.Get("created_at") };
-                        emit(key, doc);
-                    }
-                }, "1");
-            }
-
-            var query = view.CreateQuery();
-            query.Descending = true;
-            query.StartKey = new List<object> { listDocId, new Dictionary<string, object>() };
-            query.EndKey = new List<object> { listDocId };
-
-            return query;
+            get; set;
         }
 
-        public static Document CreateTask(Database database, string title, Stream image, string listId)
+        public ITaskList List
         {
-            var properties = new Dictionary<string, object> {
-                ["type"] = DocType,
-                ["title"] = title,
-                ["checked"] = false,
-                ["created_at"] = DateTime.UtcNow,
-                ["list_id"] = listId
-            };
-
-            var document = database.CreateDocument();
-            var revision = document.CreateRevision();
-            revision.SetUserProperties(properties);
-
-            if(image != null) { 
-                revision.SetAttachment("image", "image/jpg", image);
-            }
-
-            revision.Save();
-            return document;
+            get; set;
         }
 
-        public static void AttachImage(Document task, Stream image)
+        public Task(Document document) : base(document)
         {
-            if(task == null || image == null) {
-                return;
-            }
-
-            var revision = task.CreateRevision();
-            revision.SetAttachment("image", "image/jpg", image);
-            revision.Save();
         }
 
-        public static void UpdateCheckedStatus(Document task, bool isChecked)
+        public void Delete()
         {
-            task.Update(rev =>
+            _document.Delete();
+        }
+
+        protected override bool SaveTo(IDictionary<string, object> props)
+        {
+            if(!base.SaveTo(props)) {
+                return false;
+            }
+
+            var list = List as TaskList;
+            props["type"] = DocType;
+            props["checked"] = IsChecked;
+            props["list_id"] = list?.Id;
+            return true;
+        }
+
+        protected override void RestoreFrom(IDictionary<string, object> props)
+        {
+            base.RestoreFrom(props);
+            IsChecked = props.GetCast<bool>("checked");
+
+        }
+
+        public void SetImage(IEnumerable<byte> image, string contentType)
+        {
+            _document.Update(rev =>
             {
-                var props = rev.UserProperties;
-                props["checked"] = isChecked;
-                rev.SetUserProperties(props);
+                rev.SetAttachment(TaskImageName, contentType, image);
                 return true;
             });
-        }
-
-        public static void DeleteTask(Document task)
-        {
-            task.Delete();
         }
     }
 }
