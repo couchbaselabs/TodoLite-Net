@@ -21,23 +21,76 @@
 
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ToDoLiteForms.Model;
 using ToDoLiteForms.Services;
+using Xamarin.Forms;
 
 namespace ToDoLiteForms.ViewModel
 {
+    public sealed class DetailPageListViewItem
+    {
+        private ITask _task;
+
+        public string Text { get; set; }
+
+        public ImageSource ImageSource { get; set; }
+
+        public DetailPageListViewItem(ITask task)
+        {
+            _task = task;
+            Text = task.Title;
+            var hasImage = task.GetImage() != null;
+            ImageSource = hasImage ?
+                Device.OnPlatform(ImageSource.FromFile("camera"), ImageSource.FromFile("ic_camera"), null) :
+                Device.OnPlatform(ImageSource.FromFile("camera_light"), ImageSource.FromFile("ic_camera_light"), null);
+        }
+    }
+
     public sealed class DetailPageViewModel : ViewModelBase
     {
+        public ImageSource AddTaskImageSource
+        {
+            get {
+                return Device.OnPlatform(ImageSource.FromFile("camera"), ImageSource.FromFile("ic_camera"), null);
+            }
+
+        }
+
+        public string AddTaskText
+        {
+            get {
+                return _addTaskText;
+            }
+            set {
+                SetProperty(ref _addTaskText, value);
+            }
+        }
+        private string _addTaskText;
+
+        public ObservableCollection<DetailPageListViewItem> TaskItemsSource { get; } = new ObservableCollection<DetailPageListViewItem>();
+
         internal ITaskList List { get; set; }
 
         public DetailPageViewModel(INavigator navigator, IDatabaseService databaseService)
         {
-
+            
         }
 
+        public void AddNewTask()
+        {
+            if(String.IsNullOrEmpty(AddTaskText)) {
+                return;
+            }
 
+            var addTaskText = AddTaskText;
+            AddTaskText = null;
+            var task = List.AddTask(addTaskText, null, null);
+            task.Save();
+            TaskItemsSource.Add(new DetailPageListViewItem(task));
+        }
     }
 }

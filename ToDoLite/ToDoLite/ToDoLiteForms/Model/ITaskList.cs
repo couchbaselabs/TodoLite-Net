@@ -27,7 +27,7 @@ using System.Threading.Tasks;
 
 namespace ToDoLiteForms.Model
 {
-    public interface ITaskList
+    public interface ITaskList : ITitled
     {
         string Title { get; set; }
 

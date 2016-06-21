@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -56,7 +57,10 @@ namespace ToDoLiteForms.ViewModel
                 _navigator.PushAsync<DetailPageViewModel>(vm =>
                 {
                     vm.List = value;
-                });
+                }).ContinueWith(t =>
+                {
+                    Debug.WriteLine($"{t.Exception}");
+                }, TaskContinuationOptions.OnlyOnFaulted);
                 var dummy = default(ITaskList);
                 SetProperty(ref dummy, null); // Disable selection
             }

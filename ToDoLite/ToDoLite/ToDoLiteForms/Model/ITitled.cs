@@ -1,5 +1,5 @@
 ﻿//
-//  ITask.cs
+//  ITitled.cs
 //
 //  Author:
 //  	Jim Borden  <jim.borden@couchbase.com>
@@ -27,18 +27,10 @@ using System.Threading.Tasks;
 
 namespace ToDoLiteForms.Model
 {
-    public interface ITask : ITitled
+    public interface ITitled
     {
-        bool IsChecked { get; set; }
+        string Title { get; set; }
 
-        ITaskList List { get; set; }
-
-        void SetImage(IEnumerable<byte> image, string contentType);
-
-        IEnumerable<byte> GetImage();
-
-        void Delete();
-
-        void Save();
+        DateTime CreatedAt { get; set; }
     }
 }

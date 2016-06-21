@@ -43,6 +43,7 @@
     <Compile Include="Model\ITaskList.cs" />
     <Compile Include="Model\IProfile.cs" />
     <Compile Include="Model\ITask.cs" />
+    <Compile Include="Model\ITitled.cs" />
     <Compile Include="Model\LoginPageModel.cs" />
     <Compile Include="Model\MasterPageModel.cs" />
     <Compile Include="Services\IDatabaseService.cs" />

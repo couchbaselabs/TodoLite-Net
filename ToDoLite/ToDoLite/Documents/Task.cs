@@ -82,5 +82,10 @@ namespace ToDoLite.Documents
                 return true;
             });
         }
+
+        public IEnumerable<byte> GetImage()
+        {
+            return _document.CurrentRevision?.GetAttachment(TaskImageName)?.Content;
+        }
     }
 }

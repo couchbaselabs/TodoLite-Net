@@ -15,12 +15,14 @@
         <ColumnDefinition Width="Auto" />
         <ColumnDefinition Width="*" />
       </Grid.ColumnDefinitions>
-      <Entry Placeholder="Add Task" HorizontalOptions="FillAndExpand" Grid.Column="1" />
+      <Image Source="{Binding AddTaskImageSource}" />
+      <Entry Placeholder="Add Task" HorizontalOptions="FillAndExpand" Grid.Column="1" Completed="AddTaskCompleted"
+             Text="{Binding AddTaskText, Mode=TwoWay}"/>
     </Grid>
-    <ListView>
+    <ListView ItemsSource="{Binding TaskItemsSource}">
       <ListView.ItemTemplate>
         <DataTemplate>
-          <ImageCell />
+          <ImageCell Text="{Binding Text}" ImageSource="{Binding ImageSource}"/>
         </DataTemplate>
       </ListView.ItemTemplate>
     </ListView>
