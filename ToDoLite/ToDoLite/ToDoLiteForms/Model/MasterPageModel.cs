@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -31,18 +32,56 @@ namespace ToDoLiteForms.Model
 {
     public sealed class MasterPageModel
     {
-        private ILoginService _loginService;
+        private readonly ILoginService _loginService;
+        private readonly IDatabaseService _databaseService;
 
-        public bool ShouldLoginAsGuest
+        private bool ShouldLoginAsGuest
         {
             get {
                 return _loginService.IsFirstTimeUsed || Settings.IsGuestLoggedIn;
             }
         }
 
-        public MasterPageModel(ILoginService loginService)
+        public MasterPageModel(ILoginService loginService, IDatabaseService databaseService)
         {
             _loginService = loginService;
+            _databaseService = databaseService;
+        }
+
+        public ObservableCollection<ITaskList> GetExistingLists()
+        {
+            var retVal = new ObservableCollection<ITaskList>();
+            foreach (var list in _databaseService.QueryLists())
+            {
+                retVal.Add(list);
+            }
+
+            return retVal;
+        }
+
+        public ITaskList CreateList(string title)
+        {
+            var list = _databaseService.CreateList();
+            list.Title = title;
+            var currentUserId = Settings.CurrentUserId;
+            if (currentUserId != null)
+            {
+                var owner = _databaseService.GetProfile(null, currentUserId, false);
+                list.Owner = owner;
+            }
+
+            list.Save();
+            return list;
+        }
+
+        public bool LoginAsGuestIfNecessary()
+        {
+            if (ShouldLoginAsGuest)
+            {
+                LoginPageModel.LoginAsGuest(_databaseService);
+            }
+
+            return ShouldLoginAsGuest;
         }
     }
 }

@@ -32,6 +32,23 @@ namespace ToDoLiteForms.Model
     public sealed class LoginPageModel
     {
         public const string ContinueButtonText = "Continue As Guest";
+        private IDatabaseService _databaseService;
 
+        public LoginPageModel(IDatabaseService databaseService)
+        {
+            _databaseService = databaseService;
+        }
+
+        internal void LoginAsGuest()
+        {
+            LoginAsGuest(_databaseService);
+        }
+
+        internal static void LoginAsGuest(IDatabaseService databaseService)
+        {
+            Settings.IsGuestLoggedIn = true;
+            Settings.CurrentUserId = null;
+            databaseService.LoadDatabaseFor(null);
+        }
     }
 }

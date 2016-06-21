@@ -29,8 +29,6 @@ namespace ToDoLiteForms.Model
 {
     public interface ITaskList : ITitled
     {
-        string Title { get; set; }
-
         IProfile Owner { get; set; }
 
         IList<string> Members { get; set; }

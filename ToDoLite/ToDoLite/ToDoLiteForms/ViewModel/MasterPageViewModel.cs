@@ -37,8 +37,6 @@ namespace ToDoLiteForms.ViewModel
 {
     public sealed class MasterPageViewModel : ViewModelBase
     {
-        private readonly ILoginService _loginService;
-        private readonly IDatabaseService _databaseService;
         private readonly INavigator _navigator;
         private readonly MasterPageModel _model;
 
@@ -62,50 +60,31 @@ namespace ToDoLiteForms.ViewModel
                     Debug.WriteLine($"{t.Exception}");
                 }, TaskContinuationOptions.OnlyOnFaulted);
                 var dummy = default(ITaskList);
+                SetProperty(ref dummy, value);
                 SetProperty(ref dummy, null); // Disable selection
             }
         }
 
-        public MasterPageViewModel(MasterPageModel model, IDatabaseService databaseService, ILoginService loginService, INavigator navigator)
+        public MasterPageViewModel(MasterPageModel model, INavigator navigator)
         {
-            _loginService = loginService;
-            _databaseService = databaseService;
             _navigator = navigator;
             _model = model;
             AddButtonCommand = new Command(() => CreateNewTask());
             LoginButtonCommand = new Command(() => navigator.PushModalAsync<LoginPageViewModel>());
-            if(!_model.ShouldLoginAsGuest) {
+            if (!model.LoginAsGuestIfNecessary())
+            {
                 navigator.PushModalAsync<LoginPageViewModel>();
-            } else {
-                LoginPageViewModel.LoginAsGuest(databaseService);
             }
-
-            foreach(var list in _databaseService.QueryLists()) {
-                SavedLists.Add(list);
-            }
+            SavedLists = model.GetExistingLists();
         }
 
         private async void CreateNewTask()
         {
             var result = await UserDialogs.Instance.PromptAsync("Title for new list.", "New ToDo List");
             if(result.Ok && !String.IsNullOrWhiteSpace(result.Text)) {
-                var list = CreateList(result.Text);
+                var list = _model.CreateList(result.Text);
                 SavedLists.Add(list);
             }
-        }
-
-        private ITaskList CreateList(string title)
-        {
-            var list = _databaseService.CreateList();
-            list.Title = title;
-            var currentUserId = Settings.CurrentUserId;
-            if(currentUserId != null) {
-                var owner = _databaseService.GetProfile(null, currentUserId, false);
-                list.Owner = owner;
-            }
-
-            list.Save();
-            return list;
         }
     }
 }

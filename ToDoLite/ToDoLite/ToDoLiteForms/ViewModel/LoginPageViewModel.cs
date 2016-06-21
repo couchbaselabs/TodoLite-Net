@@ -36,9 +36,8 @@ namespace ToDoLiteForms.ViewModel
     public sealed class LoginPageViewModel : ViewModelBase
     {
         private ICommand _continueButtonClicked;
-        private IDatabaseService _databaseService;
         private INavigator _navigator;
-        private readonly LoginPageModel _model;
+        private LoginPageModel _model;
 
         public string ContinueButtonText
         {
@@ -52,24 +51,15 @@ namespace ToDoLiteForms.ViewModel
             }
         }
 
-        public LoginPageViewModel(LoginPageModel model, IDatabaseService databaseService, INavigator navigator)
+        public LoginPageViewModel(LoginPageModel model, INavigator navigator)
         {
             _model = model;
-            _databaseService = databaseService;
             _navigator = navigator;
-        }
-
-        internal static void LoginAsGuest(IDatabaseService databaseService)
-        {
-            Settings.IsGuestLoggedIn = true;
-            Settings.CurrentUserId = null;
-            databaseService.LoadDatabaseFor(null);
-            
         }
 
         private void LoginAsGuest()
         {
-            LoginAsGuest(_databaseService);
+            _model.LoginAsGuest();
             _navigator.PopModalAsync();
         }
     }

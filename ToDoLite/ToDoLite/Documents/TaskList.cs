@@ -40,13 +40,6 @@ namespace ToDoLite.Documents
 
         public IList<string> Members { get; set; }
 
-        internal string Id
-        {
-            get {
-                return _document.Id;
-            }
-        }
-
         public TaskList(Database database, Document document) : base(document)
         {
             _database = database;
