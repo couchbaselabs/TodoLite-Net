@@ -24,30 +24,32 @@ using System.Collections.Generic;
 using System.Text;
 
 using Couchbase.Lite;
-using ToDoLiteForms.Model;
+using ToDoLite.Core.Abstraction;
 
 namespace ToDoLite.Documents
 {
-    public sealed class TaskList : Titled, ITaskList
+    internal sealed class TaskList : Titled, ITaskList
     {
         internal const string ViewName = "lists";
         internal const string DocType = "list";
         private const string TaskViewByDate = "tasksByDate";
 
-        private Database _database;
-
         public IProfile Owner { get; set; }
 
         public IList<string> Members { get; set; }
 
-        public TaskList(Database database, Document document) : base(document)
+        public TaskList(Document document) : base(document)
         {
-            _database = database;
+
         }
 
         public IEnumerable<ITask> QueryTasks()
         {
-            var view = _database.GetView(TaskViewByDate);
+            if(_document == null) {
+                yield break;
+            }
+
+            var view = _document.Database.GetView(ViewName);
             if(view.Map == null) {
                 view.SetMap((doc, emit) =>
                 {
@@ -67,7 +69,11 @@ namespace ToDoLite.Documents
 
         public ITask AddTask(string title, IEnumerable<byte> image, string imageContentType)
         {
-            var task = new Task(_database.CreateDocument());
+            if(_document == null) {
+                return null;
+            }
+
+            var task = new Task(_document.Database.CreateDocument());
             task.Title = title;
             task.List = this;
             task.SetImage(image, imageContentType);

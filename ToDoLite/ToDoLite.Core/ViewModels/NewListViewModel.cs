@@ -1,5 +1,5 @@
 ﻿//
-//  Titled.cs
+//  NewListViewModel.cs
 //
 //  Author:
 //  	Jim Borden  <jim.borden@couchbase.com>
@@ -21,37 +21,41 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
-using Couchbase.Lite;
+using System.Threading.Tasks;
+using System.Windows.Input;
+using MvvmCross.Core.ViewModels;
 
-namespace ToDoLite.Documents
+namespace ToDoLite.Core.ViewModels
 {
-    internal abstract class Titled : DocumentBase
+    public sealed class NewListViewModel
     {
-        protected Titled(Document doc) : base(doc)
+        private MasterViewModel _source;
+
+        public event EventHandler<bool> Finished;
+
+        public string NewTitle { get; set; }
+
+        public ICommand ButtonCommand
         {
-            Restore();
+            get {
+                return new MvxCommand<bool>(TriggerFinished);
+            }
         }
 
-        public string Title { get; set; }
-
-        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
-
-
-        protected override bool SaveTo(IDictionary<string, object> props)
+        public NewListViewModel(MasterViewModel source)
         {
-            if(!props.ContainsKey("created_at")) {
-                props["created_at"] = CreatedAt;
+            _source = source;
+        }
+
+        private void TriggerFinished(bool okPressed)
+        {
+            if(okPressed && !String.IsNullOrWhiteSpace(NewTitle)) {
+                _source.CreateNewTask(NewTitle);
             }
 
-            props["title"] = Title;
-            return true;
-        }
-
-        protected override void RestoreFrom(IDictionary<string, object> props)
-        {
-            CreatedAt = props.GetCast<DateTime>("created_at", DateTime.UtcNow);
-            Title = props.GetCast<string>("title");
+            Finished?.Invoke(this, okPressed);
         }
     }
 }

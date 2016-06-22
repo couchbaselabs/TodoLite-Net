@@ -1,8 +1,0 @@
-﻿<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Name="__ReferenceID0" NavigationPage.BackButtonTitle="{x:Null}" NavigationPage.HasNavigationBar="True" NavigationPage.HasBackButton="True" NavigationPage.TitleIcon="{x:Null}"
-             x:Class="ToDoLiteForms.View.LoginPage">
-  <ContentPage.Content>
-    <ContentView BackgroundColor="#FFFFFF">
-      <Button BackgroundColor="#FFFFFF" BorderRadius="0" HorizontalOptions="Center" TextColor="#0000CD" VerticalOptions="Center" Text="{Binding ContinueButtonText}" Command="{Binding ContinueButtonClicked}" />
-    </ContentView>
-  </ContentPage.Content>
-</ContentPage>

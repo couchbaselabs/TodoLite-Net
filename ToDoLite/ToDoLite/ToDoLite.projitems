@@ -9,13 +9,15 @@
     <Import_RootNamespace>ToDoLite</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Consts.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Documents\DocumentBase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Documents\TaskList.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Documents\Profile.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Documents\Task.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Documents\Titled.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)PlatformModule.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\DatabaseService.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Services\LoginService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Util\LiveQueryWrapper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Util\Registration.cs" />
   </ItemGroup>
 </Project>

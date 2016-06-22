@@ -25,24 +25,15 @@ using System.Linq;
 using System.Text;
 
 using Couchbase.Lite;
-using ToDoLiteForms.Model;
+using ToDoLite.Core.Abstraction;
 
 namespace ToDoLite.Documents
 {
-    public sealed class Profile : IProfile
+    internal sealed class Profile : DocumentBase, IProfile
     {
         private const string ViewName = "profiles";
         private const string ByIdViewName = "profiles_by_id";
         private const string DocType = "profile";
-
-        private Document _document;
-
-        internal string Id
-        {
-            get {
-                return _document.Id;
-            }
-        }
 
         public string Name { get; set; }
 
@@ -50,9 +41,8 @@ namespace ToDoLite.Documents
         }
         public string Type { get; set; }
 
-        public Profile(Document document)
+        public Profile(Document document) : base(document)
         {
-            _document = document;
         }
 
         public static Query GetQuery(Database database, string ignoreUserId)
@@ -111,6 +101,16 @@ namespace ToDoLite.Documents
             var document = database.GetDocument($"p:{userId}");
             document.PutProperties(properties);
             return document;
+        }
+
+        protected override void RestoreFrom(IDictionary<string, object> properties)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override bool SaveTo(IDictionary<string, object> properties)
+        {
+            throw new NotImplementedException();
         }
     }
 }

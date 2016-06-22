@@ -1,5 +1,5 @@
 ﻿//
-//  Titled.cs
+//  Setup.cs
 //
 //  Author:
 //  	Jim Borden  <jim.borden@couchbase.com>
@@ -21,37 +21,39 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
-using Couchbase.Lite;
+using System.Threading.Tasks;
+using System.Windows.Threading;
+using MvvmCross.Core.ViewModels;
+using MvvmCross.Platform;
+using MvvmCross.Wpf.Platform;
+using MvvmCross.Wpf.Views;
+using ToDoLite.Core.Services;
+using ToDoLite.Services;
+using ToDoLite.Util;
+using ToDoLite.WPF.Services;
 
-namespace ToDoLite.Documents
+namespace ToDoLite.WPF
 {
-    internal abstract class Titled : DocumentBase
+    internal sealed class Setup : MvxWpfSetup
     {
-        protected Titled(Document doc) : base(doc)
+        public Setup(Dispatcher uiThreadDispatcher, IMvxWpfViewPresenter presenter) : base(uiThreadDispatcher, presenter)
         {
-            Restore();
+            
         }
 
-        public string Title { get; set; }
-
-        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
-
-
-        protected override bool SaveTo(IDictionary<string, object> props)
+        protected override IMvxApplication CreateApp()
         {
-            if(!props.ContainsKey("created_at")) {
-                props["created_at"] = CreatedAt;
-            }
-
-            props["title"] = Title;
-            return true;
+            return new Core.App();
         }
 
-        protected override void RestoreFrom(IDictionary<string, object> props)
+        protected override void InitializeIoC()
         {
-            CreatedAt = props.GetCast<DateTime>("created_at", DateTime.UtcNow);
-            Title = props.GetCast<string>("title");
+            base.InitializeIoC();
+
+            Registration.Run();
+            Mvx.RegisterType<ISettingsService, SettingsService>();
         }
     }
 }

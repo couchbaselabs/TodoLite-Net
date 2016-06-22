@@ -25,11 +25,11 @@ using System.IO;
 using System.Text;
 
 using Couchbase.Lite;
-using ToDoLiteForms.Model;
+using ToDoLite.Core.Abstraction;
 
 namespace ToDoLite.Documents
 {
-    public class Task : Titled, ITask
+    internal sealed class Task : Titled, ITask
     {
         internal const string DocType = "task";
         private const string ViewName = "tasks";

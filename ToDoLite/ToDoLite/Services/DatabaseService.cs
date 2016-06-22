@@ -21,11 +21,13 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using Couchbase.Lite;
+using ToDoLite.Core.Abstraction;
+using ToDoLite.Core.Services;
 using ToDoLite.Documents;
-using ToDoLiteForms.Model;
-using ToDoLiteForms.Services;
+using ToDoLite.Util;
 
 namespace ToDoLite.Services
 {
@@ -34,10 +36,17 @@ namespace ToDoLite.Services
         private const string ProfileDocType = "profile";
         private Database _database;
 
+        public bool IsFirstTimeRun
+        {
+            get {
+                return !Manager.SharedInstance.AllDatabaseNames.Any();
+            }
+        }
+
         public ITaskList CreateList()
         {
             var doc = _database.CreateDocument();
-            return new TaskList(_database, doc);
+            return new TaskList(doc);
         }
 
         public ITask CreateTask()
@@ -66,7 +75,23 @@ namespace ToDoLite.Services
             _database = Manager.SharedInstance.GetDatabase(userId ?? "guest");
         }
 
-        public IEnumerable<ITaskList> QueryLists()
+        public ILiveQuery<ITaskList> LiveListQuery()
+        {
+            
+            var query = ListQuery().ToLiveQuery();
+            return new LiveQueryWrapper<ITaskList, TaskList>(query);
+        }
+
+        public void UpdateAllLists(IProfile owner)
+        {
+            foreach(var row in ListQuery().Run()) {
+                var list = new TaskList(row.Document);
+                list.Owner = owner;
+                list.Save();
+            }
+        }
+
+        private Query ListQuery()
         {
             var view = _database.GetView(TaskList.ViewName);
             if(view.Map == null) {
@@ -79,18 +104,7 @@ namespace ToDoLite.Services
                 }, "1");
             }
 
-            var query = view.CreateQuery();
-            foreach(var row in query.Run()) {
-                yield return new TaskList(_database, row.Document);
-            }
-        }
-
-        public void UpdateAllLists(IProfile owner)
-        {
-            foreach(var list in QueryLists()) {
-                list.Owner = owner;
-                list.Save();
-            }
+            return view.CreateQuery();
         }
     }
 }
